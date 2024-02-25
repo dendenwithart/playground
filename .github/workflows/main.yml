@@ -31,5 +31,5 @@ jobs:
     steps:
       - name: Print data
         run: |
-          echo $HELLO_WORLD
+          echo "${{ env.HELLO_WORLD }}""
 
