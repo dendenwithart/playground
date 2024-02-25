@@ -30,6 +30,5 @@ jobs:
     needs: job1
     steps:
       - name: Print data
-        run: |
-          echo "${{ env.HELLO_WORLD }}""
+        run: echo "Hello world output was: ${{ env.HELLO_WORLD }}"
 
