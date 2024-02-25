@@ -11,15 +11,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
       - name: Write data to file
-        run: echo "Hello, world!" > file.txt
+        run: |
+          python3 helloworld.py > file.txt
+          echo > file.txt
 
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Read data from file
-        run: cat file.txt
