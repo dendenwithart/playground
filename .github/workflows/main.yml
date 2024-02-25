@@ -23,4 +23,13 @@ jobs:
       - name: Write data to file
         run: |
           python3 helloworld.py 
+          echo "HELLO_WORLD=$(python helloworld.py)" >> $GITHUB_ENV
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - name: Print data
+        run: |
+          echo $HELLO_WORLD
 
