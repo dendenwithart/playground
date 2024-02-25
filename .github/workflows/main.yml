@@ -23,7 +23,7 @@ jobs:
       - name: Write data to output
         id: set_output
         run: |
-          echo "::set-output name=HELLO_WORLD::$(python helloworld.py)"
+          echo "{HELLO_WORLD}={python helloworld.py}" >> $GITHUB_STATE
     outputs:
       hello_world: ${{ steps.set_output.outputs.HELLO_WORLD }}
 
