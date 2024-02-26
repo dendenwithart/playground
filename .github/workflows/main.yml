@@ -36,4 +36,4 @@ jobs:
         env:
           HELLO_WORLD: ${{ needs.job1.outputs.hello_world }}
         run: |
-          python python.py
+          python pov.py
