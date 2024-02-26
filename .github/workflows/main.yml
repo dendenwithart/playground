@@ -20,13 +20,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip
 
+#Set the output as environment variable and use it in job2
       - name: Write data to output
         id: set_output
         run: |
-          echo "::set-output name=HELLO_WORLD::$(python helloworld.py)"
-          
+          echo "::set-output name=HELLO_WORLD::$(python helloworld.py)" 
     outputs:
       hello_world: ${{ steps.set_output.outputs.HELLO_WORLD }}
+
 
   job2:
     runs-on: ubuntu-latest
@@ -44,6 +45,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
+
+#Use the output from job1
+#env: to use environment variable inside pov.py script
 
       - name: Run Python data
         env:
