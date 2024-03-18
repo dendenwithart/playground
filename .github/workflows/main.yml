@@ -1,58 +1,67 @@
+
+#Name of workflow / show GHA 
 name: Workspace Example
 
+#Trigger the workflow on push event 
 on:
   push:
     branches: [ main ]
     
 jobs:
+#Job1 to run the python script and set the output as environment variable
   job1:
     runs-on: ubuntu-latest
     steps:
+      #Checkout the code
       - name: Checkout code
         uses: actions/checkout@v2
 
+      #Setup python environment
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
 
+      #Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
 
-#Set the output as environment variable and use it in job2
+      #Set the output as environment variable to use it in job2
       - name: Write data to output
         id: set_output
         run: |
-          echo "HELLO_WORLD=$(python helloworld.py)" >> $GITHUB_OUTPUT
-#          echo "::set-output name=HELLO_WORLD::$(python helloworld.py)" 
-       
+          echo "JOB1_OUTPUT=$(python job1_output.py)" >> $GITHUB_OUTPUT
+
     outputs:
-      hello_world: ${{ steps.set_output.outputs.HELLO_WORLD }}
+      job1_output: ${{ steps.set_output.outputs.JOB1_OUTPUT}}
 
 
   job2:
     runs-on: ubuntu-latest
+    #Declare the dependency on job1
     needs: job1
     steps:
-
+      #Checkout the code
       - name: Checkout code
         uses: actions/checkout@v2
 
+      #Setup python environment
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
 
+      #Install dependencies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
 
 #Use the output from job1
-#env: to use environment variable inside pov.py script
+#env: to use environment variable inside PrintResult_Job1 script
 
       - name: Run Python data
         env:
-          HELLO_WORLD: ${{ needs.job1.outputs.hello_world }}
+          JOB1_OUTPUT: ${{ needs.job1.outputs.job1_output }}
         run: |
-          python pov.py
+          python PrintResult_Job1.py

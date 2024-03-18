@@ -1,2 +1,2 @@
-#Print result after execution:
+#Print the result
 print('{"event": "troubleshootingTips","time": "2024-02-16T22:50:00.690Z","data": ["Possible Case: a1_upgrade","Timeout , check why next event: A1Upgraded not coming","please contact DRI of [epas (caller), instance-app (callee)] to check the event: A1Upgraded "]}')
